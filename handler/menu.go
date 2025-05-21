@@ -6,17 +6,18 @@ import (
 	"gopkg.in/telebot.v3"
 )
 
-func handleMenu() func(c telebot.Context) error {
+func handleMenu(bot *telebot.Bot) func(c telebot.Context) error {
 
 	return func(c telebot.Context) error {
 
-		log.Printf("%s: %s", c.Sender().FirstName, c.Text())
+		log.Printf("%s: /menu", c.Sender().FirstName)
 
 		inlineButton := [][]telebot.InlineButton{
 			{
 				telebot.InlineButton{
-					Unique: "btn_1",
+					Unique: "history_evm",
 					Text:   "Вся история ЭВМ 📚",
+					Data:   "open",
 				},
 
 				telebot.InlineButton{
@@ -45,6 +46,11 @@ func handleMenu() func(c telebot.Context) error {
 
 		Выберите интересующую вас тему:
 		`
+
+		bot.Handle(&inlineButton[0][0], handleHistoryEVM(bot))
+		bot.Handle(&inlineButton[0][1], handleText(bot))
+		bot.Handle(&inlineButton[1][0], handleKarikatura(bot))
+		bot.Handle(&inlineButton[1][1], handleText(bot))
 
 		return c.Send(message, inlineMarkup)
 	}

@@ -11,7 +11,7 @@ func handleStart(bot *telebot.Bot) func(c telebot.Context) error {
 
 	return func(c telebot.Context) error {
 
-		log.Printf("%s: %s", c.Sender().FirstName, c.Text())
+		log.Printf("%s: /start", c.Sender().FirstName)
 
 		message := `Привет %s! 👋
 
@@ -31,7 +31,7 @@ func handleStart(bot *telebot.Bot) func(c telebot.Context) error {
 		inlineMarkup := &telebot.ReplyMarkup{}
 		inlineMarkup.InlineKeyboard = inlineStartButton
 
-		bot.Handle(&inlineStartButton[0][0], handleMenu())
+		bot.Handle(&inlineStartButton[0][0], handleMenu(bot))
 
 		return c.Send(fmt.Sprintf(message, c.Sender().FirstName), inlineMarkup)
 	}
