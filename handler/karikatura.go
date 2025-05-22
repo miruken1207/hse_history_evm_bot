@@ -20,7 +20,7 @@ func handleKarikatura(bot *telebot.Bot) func(c telebot.Context) error {
 		album := telebot.Album{
 			&telebot.Photo{
 				File:    telebot.FromDisk("data/photo_1.jpg"),
-				Caption: "Карикатуры про ЭВМ📸",
+				Caption: "Карикатуры про ЭВМ 📸",
 			},
 			&telebot.Photo{
 				File: telebot.FromDisk("data/photo_2.jpg"),

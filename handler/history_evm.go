@@ -23,7 +23,21 @@ func handleHistoryEVM(bot *telebot.Bot) func(c telebot.Context) error {
 			log.Fatalf("Ошибка при чтении файла: %v", err)
 		}
 
-		return c.Send(string(message), telebot.ModeHTML)
+		backButton := [][]telebot.InlineButton{
+			{
+				telebot.InlineButton{
+					Unique: "exit1",
+					Text:   "◀️ Назад в Меню📲",
+				},
+			},
+		}
+
+		inlineMarkup := &telebot.ReplyMarkup{}
+		inlineMarkup.InlineKeyboard = backButton
+
+		bot.Handle(&backButton[0][0], handleMenu(bot))
+
+		return c.Send(string(message), telebot.ModeHTML, inlineMarkup)
 	}
 
 }

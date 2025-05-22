@@ -21,19 +21,19 @@ func handleMenu(bot *telebot.Bot) func(c telebot.Context) error {
 				},
 
 				telebot.InlineButton{
-					Unique: "btn_2",
+					Unique: "scientists",
 					Text:   "Личности 👤",
 				},
 			},
 
 			{
 				telebot.InlineButton{
-					Unique: "btn_3",
+					Unique: "karikatura",
 					Text:   "Карикатуры 🖼️",
 				},
 
 				telebot.InlineButton{
-					Unique: "btn_4",
+					Unique: "media",
 					Text:   "Медиа 🎥",
 				},
 			},
@@ -48,9 +48,9 @@ func handleMenu(bot *telebot.Bot) func(c telebot.Context) error {
 		`
 
 		bot.Handle(&inlineButton[0][0], handleHistoryEVM(bot))
-		bot.Handle(&inlineButton[0][1], handleText(bot))
+		bot.Handle(&inlineButton[0][1], handleScientists(bot))
 		bot.Handle(&inlineButton[1][0], handleKarikatura(bot))
-		bot.Handle(&inlineButton[1][1], handleText(bot))
+		bot.Handle(&inlineButton[1][1], handleMedia(bot))
 
 		return c.Send(message, inlineMarkup)
 	}
